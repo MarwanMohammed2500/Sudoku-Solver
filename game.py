@@ -6,6 +6,9 @@ def solver(board):
     
     if not full:
         row, col = find_empty_cell(board)
+        if row == None:
+            return board
+
         for num in range(1, 10):
             if is_valid(board, row, col, num):
                 board[row][col] = num
@@ -17,7 +20,6 @@ def solver(board):
     if not valid:
         board[row][col] = 0 
 
-    return board
 
 
 board = generate_puzzle()
