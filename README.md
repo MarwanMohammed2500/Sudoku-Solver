@@ -22,7 +22,7 @@ This script containts all the functions that are fundemental for either generati
        - Checks the validity of the number to insert in a specific cell, **returns bool**
   3) find_empty_cell:
        - Finds and returns the first empty cell it encounters, **returns tuple**
-  4) i_full:
+  4) is_full:
        - Checks if the board it full, **return bool**
 
 ## generator.py:
