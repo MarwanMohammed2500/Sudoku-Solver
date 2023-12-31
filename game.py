@@ -1,4 +1,4 @@
-from game_generator import *
+from helper_functions import *
 
 def solver(board):
     full = is_full(board)
