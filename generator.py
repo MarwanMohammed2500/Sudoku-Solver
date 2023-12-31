@@ -18,6 +18,7 @@ class generator():
         #                 return True
         # if not, try other numbers between 1 and 9
         # else:
+        
         # try each number 1 to 9
         for num in range(1, 10):
             if is_valid(self.board, row, col, num):
@@ -69,7 +70,3 @@ class generator():
                 if num != original:
                     return False
         return True
-    
-# g = generator()
-# board = g.generate()
-# print("\n\n", board)
