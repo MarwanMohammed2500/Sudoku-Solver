@@ -14,7 +14,7 @@ Stuff to be added in future versions:
   3) print out the board without printing out an error instead.
 
 
-## helper_functions.py:
+### helper_functions.py:
 This script containts all the functions that are fundemental for either generating the puzzle or solving it.
   1) print_board:
        - Prints the board, **returns None**
@@ -25,19 +25,18 @@ This script containts all the functions that are fundemental for either generati
   4) is_full:
        - Checks if the board it full, **return bool**
 
-## generator.py:
+### generator.py:
 This script is responsible for the generation of the puzzle, it does so by generating a full, and valid sudoku board, then it randomly removes elements from it after making sure it still will give us a unique solution.
-  1) solve_sudoku:
-       - Responsible of generating a full board, making sure it is valid and then returns a boolean value indicating a successful or failed generation, **returns bool**
-  2) generate:
-       - Generates the puzzle, it removes random values from the board, while still making sure it is unique and valid, **returns np.array**
-  3) unique:
+  1) generate_board:
+       - Generates the puzzle, checking if a values is valid in a specific cell, if not, then it checks if a previous value is valid, and switches them, it removes random values from the board, while still making sure it is unique and valid, **returns np.array**
+  2) unique:
        - Makes sure that a specific cell can hold one and only one value after the full generation of the board, **returns bool**
 
 
-## game.py:
+### game.py:
 This is the actual model that solves the game, it uses a backtracking (DFS) algorthim to solve the board
-  1) solver:
-       - Solves the board using backtracking teqnique, **return np.array**
+  1) solve_sudoku:
+       - Responsible for solving the sudoku board, **return np.ndarray**
 
+This program has been tested, but feel free to test it yourself and add modifications on it if you feel like it, but do attach a detailed documentation of the changes, then maybe we can talk them over some virtual coffee☕
 ## This program was made possible via the **MASSIVE** help of @omarjimy who massively contributed to this project, thank you!
