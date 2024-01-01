@@ -22,12 +22,3 @@ def find_empty_cell(board): # Returns the first empty cell it encounters
                 return i, j
     
     return None, None
-
-def is_full(board): # Checks if the board is full or not
-    if len(board[board == 0]) > 0:
-        return False
-    else:
-        return True
-
-
-
