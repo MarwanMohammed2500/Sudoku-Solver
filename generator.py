@@ -1,58 +1,66 @@
 from helper_functions import *
+import random
+
 class generator():
     def __init__(self):
         self.board = np.zeros((9, 9), np.uint16) # Generates a board of zeros
         
-    def solve_sudoku(self, board):
-        row, col = find_empty_cell(self.board)
-
-        # no empty cells (solved)
-        if row is None:
-            return True
-
-        # try a random value first and see if it is valid
-        # val = np.random.randint(1, 10)
-        # if is_valid(self.board, row, col, val):
-        #         self.board[row][col] = val
-        #         if self.solve_sudoku(self.board):
-        #                 return True
-        # if not, try other numbers between 1 and 9
-        # else:
+    def generate_board(self, difficulty = "hard"):
+        count = 0 # --> To count how many iterations have been done.
+        available_nums = np.array([i for i in range(1, 10)]) # --> Available numbers in each row
+        random.shuffle(available_nums) # --> Shuffles them randomly to create some randomness in the creation of puzzle, so each puzzle generated is different
         
-        # try each number 1 to 9
-        for num in range(1, 10):
-            if is_valid(self.board, row, col, num):
-                self.board[row][col] = num
+        while True: # --> Loops, using backtracking (or DFS Teqnique) to generate the board
+            row, col = find_empty_cell(self.board) # --> Finds the first empty cell
+            if row == None: # --> If the board is full
+                break
+            if count > 200: # --> if it iterated more than 2000 times over a singular board, it means it's incorrect, so it breaks and tries a different one.
+                break
+            
+            for num in available_nums: # --> Loops over the available numbers, checking if it's valid to put that number in that cell
+                if is_valid(self.board, row, col, num):
+                    available_nums = np.delete(available_nums, np.where(available_nums == num))
+                    self.board[row][col] = num
+                    
+                    break
+            
+            if (self.board[row][col] == 0): # --> if a cell is still empty, then try to switch it with a previous one if valid.
+                for j in available_nums:
+                    for i in range(1, col+1):
+                        tmp = self.board[row][col - i]
+                        self.board[row][col - i] = 0
+                        if (is_valid(self.board, row, col, tmp)) and (is_valid(self.board, row, col - i, j)):
+                            self.board[row][col] = tmp
+                            self.board[row][col - i] = j
+                            available_nums = np.delete(available_nums, np.where(available_nums == j))
+                            
+                            break
+                        else:
+                            self.board[row][col - i] = tmp
+                    if self.board[row][col] != 0:
+                        break
 
-                # recursively try to solve the rest
-                if self.solve_sudoku(self.board):
-                    return True
-
-                # does not lead to a solution, backtrack
-                self.board[row][col] = 0
-
-        # no solution (invalid table)
-        return False
-    
-    
-    def generate(self):
-        # generates a complete Sudoku board
-        self.solve_sudoku(self.board)
+            if (col == 8) and (self.board[row][col] != 0): # resets the available numbers to insert in a row if we move onto a new row.
+                available_nums = np.array([i for i in range(1, 10)])
+                random.shuffle(available_nums)
+            count += 1 # --> to indicate a finished iteration
         
-        # if difficulty == "easy":
-        #     cells_to_remove = 40
-        # elif difficulty == "medium":
-        #     cells_to_remove = 50
-        # elif difficulty == "hard":
-        #     cells_to_remove = 60
-        # else:
-        #     raise ValueError("Invalid difficulty level. Choose 'easy', 'medium', or 'hard'.")
-
-        # randomly remove cells based on the difficulty level
+        if count > 200: # --> if it reaches 2000, then it recursevely tries to generate a new board.
+            self.board = np.zeros((9, 9), np.uint16)
+            return self.generate_board()
+        
+        if difficulty == "easy":
+            cells_to_remove = 40
+        elif difficulty == "medium":
+            cells_to_remove = 50
+        elif difficulty == "hard":
+            cells_to_remove = 60
+        else:
+            raise ValueError("Invalid difficulty level. Choose 'easy', 'medium', or 'hard'.")
         cells = [(i, j) for i in range(9) for j in range(9)]
         np.random.shuffle(cells)
 
-        for i, j in cells[:60]:
+        for i, j in cells[:cells_to_remove]: # --> removes a cell, checking if it still generates a unique board afterwards.
             backup = self.board[i][j]
             self.board[i][j] = 0
 
@@ -60,9 +68,10 @@ class generator():
             if not self.unique(i, j, backup):
                 self.board[i][j] = backup
 
+        # print(self.board)
         return self.board
 
-    def unique(self, row, col, original):
+    def unique(self, row, col, original): # Checks if the board is still unique after removing a specific cell.
         # copy the board and check if the puzzle has a unique solution
         temp = self.board
         for num in range(1, 10):
