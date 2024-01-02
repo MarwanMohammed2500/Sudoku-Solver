@@ -28,7 +28,7 @@ This script containts all the functions that are fundemental for either generati
 ### generator.py:
 This script is responsible for the generation of the puzzle, it does so by generating a full, and valid sudoku board, then it randomly removes elements from it after making sure it still will give us a unique solution.
   1) generate_board:
-       - Generates the puzzle, checking if a values is valid in a specific cell, if not, then it checks if a previous value is valid, and switches them, it removes random values from the board, while still making sure it is unique and valid, **returns np.array**
+       - Generates the puzzle, checking if a values is valid in a specific cell, if not, then it checks if a previous value is valid, and switches them, it removes random values from the board, while still making sure it is unique and valid, the reason why it iterates only 82 times is, a sudoku board only needs 81 iterations at worst to be fully filled, if it is not filled after 81 iteratinos, then we hop into an infinit loop, so I limited it to only 82 iterations, **returns np.array**
   2) unique:
        - Makes sure that a specific cell can hold one and only one value after the full generation of the board, **returns bool**
 
