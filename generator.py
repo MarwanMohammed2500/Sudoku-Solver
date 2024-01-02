@@ -14,7 +14,7 @@ class generator():
             row, col = find_empty_cell(self.board) # --> Finds the first empty cell
             if row == None: # --> If the board is full
                 break
-            if count > 200: # --> if it iterated more than 2000 times over a singular board, it means it's incorrect, so it breaks and tries a different one.
+            if count > 82: # --> if it iterated more than 2000 times over a singular board, it means it's incorrect, so it breaks and tries a different one.
                 break
             
             for num in available_nums: # --> Loops over the available numbers, checking if it's valid to put that number in that cell
@@ -45,7 +45,7 @@ class generator():
                 random.shuffle(available_nums)
             count += 1 # --> to indicate a finished iteration
         
-        if count > 200: # --> if it reaches 2000, then it recursevely tries to generate a new board.
+        if count > 82: # --> if it reaches 82, then it recursevely tries to generate a new board, the reason it is 82, is because a sudoku board will be generated (in the worst case scenario) after 81 iterations, and i gave it one more iteration for the hell of it tbh, after that, it doesn't make sense, so, try with a new board
             self.board = np.zeros((9, 9), np.uint16)
             return self.generate_board()
         
