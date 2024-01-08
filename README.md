@@ -24,6 +24,8 @@ This script containts all the functions that are fundemental for either generati
        - Finds and returns the first empty cell it encounters, **returns tuple**
   4) is_full:
        - Checks if the board it full, **return bool**
+  5) get_input:
+       - Gets the user input (if exist) for both difficulty and the board itself.
 
 ### generator.py:
 This script is responsible for the generation of the puzzle, it does so by generating a full, and valid sudoku board, then it randomly removes elements from it after making sure it still will give us a unique solution.
@@ -39,4 +41,9 @@ This is the actual model that solves the game, it uses a backtracking (DFS) algo
        - Responsible for solving the sudoku board, **return np.ndarray**
 
 This program has been tested, but feel free to test it yourself and add modifications on it if you feel like it, but do attach a detailed documentation of the changes, then maybe we can talk them over some virtual coffee☕
+
+### main.py:
+This is where it all combines, simpy just using all the functions that are necessary to run the program here:
+  1) main:
+       - That's where the script is ran and work.
 ## This program was made possible via the **MASSIVE** help of @omarjimy who massively contributed to this project, thank you!
