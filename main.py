@@ -15,7 +15,10 @@ print("Solving...\n\n")
 
 sol = solve_sudoku(board)
 if sol[0] == False:
-    print("Unsolvable!")
+    return "Unsolvable!"
 else:
     print("Final state:\n")
-    print_board(sol[1])
+    return sol[1]
+
+if __name__ == "__main__":
+  print(main())
