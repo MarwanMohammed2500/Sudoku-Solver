@@ -1,25 +1,6 @@
 from helper_functions import *
 from generator import *
 
-def get_input():
-    user_choice = input("Do you want to input a Sudoku puzzle? (yes/no) ").lower()
-
-    if user_choice == "yes":
-        print("Enter the Sudoku puzzle row by row (use 0 for empty cells):")
-        user_board = []
-        for _ in range(9):
-            row = [int(num) for num in input().split()]
-            user_board.append(row)
-        return user_board, None
-
-    elif user_choice == "no":
-        difficulty = input("Choose difficulty level: 'easy', 'medium', or 'hard' ").lower()
-
-        if difficulty not in ["easy", "medium", "hard"]:
-            raise ValueError("Invalid difficulty level. Choose 'easy', 'medium', or 'hard'.")
-        return None, difficulty
-
-
 def solve_sudoku(board): # --> Solves the sudoku puzzle
     row, col = find_empty_cell(board) # --> finds the first empty cell.
 
