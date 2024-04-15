@@ -14,7 +14,7 @@ class generator():
             row, col = find_empty_cell(self.board) # --> Finds the first empty cell
             if row == None: # --> If the board is full
                 break
-            if count > 82: # --> if it iterated more than 2000 times over a singular board, it means it's incorrect, so it breaks and tries a different one.
+            if count > 82: # --> if it iterated more than 81 times over a singular board, it means it's incorrect, so it breaks and tries a different one.
                 break
             
             for num in available_nums: # --> Loops over the available numbers, checking if it's valid to put that number in that cell
